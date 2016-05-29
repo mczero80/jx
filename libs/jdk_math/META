@@ -1,0 +1,8 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += jdk_objectstream
+SUBDIRS = java/math gnu/java/math
+LIBNAME = jdk_math
+NUMBERENV = int
+
+

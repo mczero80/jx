@@ -1,0 +1,6 @@
+NEEDLIBS = zero zero_misc jdk_net
+NEEDLIBS += awt_003 jdk_fs jdk_math
+SUBDIRS = jx/rdp jx/rdp/orders jx/rdp/crypto
+LIBNAME = rdp_awt
+CLASSFILES = jx/*.class jx/*/*.class
+NUMBERENV = int

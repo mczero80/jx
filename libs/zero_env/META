@@ -1,0 +1,9 @@
+NEEDLIBS = zero jdk0
+
+SUBDIRS = jx/zero/env
+
+LIBNAME = zero_env
+CLASSFILES = jx/zero/*.class jx/zero/*/*.class
+NUMBERENV = int
+
+

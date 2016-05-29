@@ -1,0 +1,5 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+SUBDIRS = test/cpustate
+LIBNAME = test_cpustate
+NUMBERENV = int
+

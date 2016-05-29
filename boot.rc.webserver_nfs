@@ -1,0 +1,132 @@
+#
+#  JX boot configuration
+#
+
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+#######################
+# Components
+#######################
+
+[Component PCI]
+InitLib      = pci_pc.jll
+StartClass   = jx/devices/pci/PCIGod
+
+[Component Timer]
+InitLib      = timer_pc.jll 
+StartClass   = timerpc/StartTimer
+Args         = TimerManager
+
+[Component NetDevices]
+InitLib      = net_devices.jll
+StartClass   = jx/net/StartNetDevice
+Args         = NIC, eth0, 8:0:6:28:63:40
+
+[Component NetProtos]
+InitLib      = net_protocols.jll 
+StartClass   = jx/net/protocols/StartNetworkProtocols
+Args         = NIC, TimerManager, NET
+#InheritThread = jx/net/protocol/tcp/TCPSocket
+
+[Component TCPTest]
+InitLib      = test_net.jll
+StartClass   = test/net/StartTCPTest
+Args         = NET, 7
+
+[Component WebServer]
+InitLib      = webserver.jll
+StartClass   = test/net/WebServer
+#Args         = -threads
+#Args         = -fs, FS
+Args         = -fs, FS, -threads, -verbose
+
+[Component BioRAM]
+InitLib      = test_fs.jll
+StartClass   = test/fs/BioRAMDomain
+Args         = BIOFS
+
+[Component BioIDE]
+InitLib      = bio_ide.jll
+StartClass   = bioide/Main
+Args         = TimerManager, BIOFS_RW, 0, 2
+
+[Component BioIDE_RW]
+InitLib      = bio_ide.jll
+StartClass   = bioide/Main
+Args         = TimerManager, BIOFS, 0, 2
+
+[Component BioRO]
+InitLib      = bio_readonly.jll
+StartClass   = jx/bioro/Main
+Args         = BIOFS_RW, BIOFS
+
+[Component FS]
+StartClass   = test/fs/FSDomain
+InitLib      = test_fs.jll
+Args         = BIOFS, FS
+
+[Component FSFormat]
+StartClass   = test/fs/FSDomain
+InitLib      = test_fs.jll
+Args         = BIOFS, FS, -format
+
+[Component NFS]
+StartClass   = test/nfs/NFSDomain
+InitLib      = test_nfs.jll
+Args         = NET, FS
+
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = "PCIDomain"
+Scheduler    = jx/scheduler/HLRRobin
+HeapSize     = 300000
+CodeSize     = 50000
+Components   = PCI
+
+[Domain]
+Name         = "NicDomain"
+HeapSize     = 20000000
+CodeSize     = 50000
+Components   = Timer, NetDevices
+
+[Domain]
+Name         = "NetDomain"
+HeapSize     = 30000000
+CodeSize     = 50000
+Components   = NetProtos
+
+[Domain]
+Name         = "FS"
+HeapSize     = 30000000
+CodeSize     = 50000
+Components   = BioIDE_RW, FSFormat 
+
+#[Domain]
+#Name         = "FS"
+#HeapSize     = 30000000
+#CodeSize     = 50000
+#Components   = BioIDE, BioRO, FS
+
+[Domain]
+Name         = "WebServer"
+HeapSize     = 10000000
+CodeSize     = 50000
+Components   = WebServer
+
+[Domain]
+Name         = "NFS"
+HeapSize     = 10000000
+CodeSize     = 50000
+Components   = NFS
+

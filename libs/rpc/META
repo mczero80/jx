@@ -1,0 +1,22 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += classfile
+NEEDLIBS += collections
+NEEDLIBS += zip
+NEEDLIBS += classstore
+NEEDLIBS  += timer
+NEEDLIBS  += buffer
+NEEDLIBS += devices
+NEEDLIBS += net
+NEEDLIBS += xdr
+NEEDLIBS += net_manager
+
+SUBDIRS = jx/rpc
+
+LIBNAME    = rpc
+CLASSFILES = jx/rpc/*.class 
+NUMBERENV  = int
+
+

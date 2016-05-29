@@ -1,0 +1,14 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += jdk_net
+NEEDLIBS += jdk_fs
+NEEDLIBS += jdk_url
+NEEDLIBS += jdk_collections
+NEEDLIBS += jdk_objectstream
+NEEDLIBS += jdk_security_base
+NEEDLIBS += jdk_math
+SUBDIRS = java/net java/security java/security/cert java/security/acl java/security/interfaces java/security/spec gnu/java/security
+LIBNAME = jdk_security
+NUMBERENV = int
+
+

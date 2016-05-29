@@ -1,0 +1,60 @@
+REQUIREMENTS
+============
+
+To build JX you need a Linux system with perl, java, and gcc.
+
+
+BUILDING JX
+===========
+
+If you can read this file you probably have a JX source tree. In
+the root of this tree there is a file tools/setupenv.tcsh that 
+sets environment variables for a tcsh and a corresponding file
+tools/setupenv.bash for a bourne shell. Adjust the following variables: 
+
+ JXROOT     the root of the JX source tree (e.g. /home/<username>/jx)
+ JDKVERSION your Java installation (e.g. /usr/lib/jdk1.3)
+
+Then source this file (source tools/setupenv.tcsh).
+
+Now select a system configuration. If you want to run the AWT demo
+execute the following commands:
+cp boot.rc.awt boot.rc
+cp libs/COMPONENTS_AWT  libs/COMPONENTS
+
+Now start the build process by typing:
+make
+
+
+BOOTING JX
+==========
+
+The build process creates two important files: code.zip and jcore/jxcore.
+You must use the grub bootloader to boot jxcore as the kernel and
+code.zip as a module.
+
+There are at least two alternatives for booting: create a bootable floppy disk
+or boot from a tftp server. A floppy can only be used if the code.zip and
+jxcore files both fit on the floppy. To boot from the network you need a
+tftpserver, which usually also acts as dhcp server, and a target PC to run JX.
+
+
+Creating a boot floppy
+----------------------
+Create a grub boot floppy by using one of the floppy images from our web page.
+Then insert this floppy and type "make fd0". 
+
+
+Booting from the network using tftp
+-----------------------------------
+Install grub on your target PC and copy the code.zip and jxcore files to the
+/tftpboot directory of your tftp server.
+Add an entry to grub's menu.lst:
+
+title = JX
+bootp
+root (nd)
+kernel = /tftpboot/jxcore
+module = /tftpboot/code.zip
+
+

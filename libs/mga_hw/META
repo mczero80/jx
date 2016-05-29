@@ -1,0 +1,8 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1 pci framebuffer
+NEEDLIBS += devices
+NEEDLIBS += fb
+NEEDLIBS += mga_if wintv_util
+SUBDIRS = jx/devices/fb/mga
+LIBNAME = mga_hw
+NUMBERENV = int
+

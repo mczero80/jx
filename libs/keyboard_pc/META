@@ -1,0 +1,8 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1 keyboard
+NEEDLIBS += devices
+NEEDLIBS += wm
+NEEDLIBS += mouse
+SUBDIRS = jx/keyboard
+LIBNAME = keyboard_pc
+NUMBERENV = int
+

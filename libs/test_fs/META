@@ -1,0 +1,23 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS += buffer
+NEEDLIBS += timer timer_pc
+NEEDLIBS += collections
+NEEDLIBS += shell
+NEEDLIBS += bio bio_ram bio_ide 
+NEEDLIBS += fs_buffer
+NEEDLIBS += fs
+NEEDLIBS += fs_vfs 
+NEEDLIBS += fs_javafs 
+NEEDLIBS += fs_buffer_impl
+NEEDLIBS += test_ide
+
+NEEDLIBS += formats
+
+NEEDLIBS += scheduler
+
+SUBDIRS = test/fs
+
+LIBNAME = test_fs
+CLASSFILES = test/fs/*.class
+NUMBERENV = int
+

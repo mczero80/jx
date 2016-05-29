@@ -1,0 +1,6 @@
+NEEDLIBS = zero jdk0 zero_misc
+SUBDIRS = java/io java/lang java/util
+LIBNAME = jdk1
+NUMBERENV = float
+
+

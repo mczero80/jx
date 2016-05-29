@@ -1,0 +1,55 @@
+#
+#  JX boot configuration
+#
+
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+#######################
+# Components
+#######################
+
+[Component CPUStateTest]
+StartClass   = test/cpustate/Main
+InitLib      = test_cpustate.jll
+
+[Component DomainB]
+StartClass   = test/cpustate/DomainA
+InitLib      = test_cpustate.jll
+
+[Component DomainA]
+StartClass   = test/cpustate/DomainB
+InitLib      = test_cpustate.jll
+
+
+
+#######################
+# Domains
+#######################
+
+#[Domain]
+#Name         = CPUStateTest
+#HeapSize     = 300000
+#CodeSize     = 50000
+#Components   = CPUStateTest
+
+[Domain]
+Name         = A
+HeapSize     = 300000
+CodeSize     = 50000
+Components   = DomainA
+
+[Domain]
+Name         = B
+HeapSize     = 300000
+CodeSize     = 50000
+Components   = DomainB
+
+
+

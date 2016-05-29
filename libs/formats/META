@@ -1,0 +1,11 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += jdk1
+NEEDLIBS += zero_misc
+
+SUBDIRS = jx/formats
+
+LIBNAME    = formats
+NUMBERENV  = int
+
+

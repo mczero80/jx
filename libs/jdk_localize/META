@@ -1,0 +1,8 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += jdk_objectstream
+SUBDIRS = java/text java/util
+LIBNAME = jdk_localize
+NUMBERENV = int
+
+

@@ -1,0 +1,12 @@
+#
+# local COMPONENT file. Don`t checkin.
+#
+
+init2
+
+test_memobj
+test_portal
+mini_domain
+
+
+

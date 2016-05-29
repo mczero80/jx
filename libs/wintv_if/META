@@ -1,0 +1,8 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1 pci framebuffer wintv_util
+
+SUBDIRS = jx/wintv
+
+LIBNAME = wintv_if
+
+NUMBERENV = int
+

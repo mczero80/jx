@@ -1,0 +1,11 @@
+#
+# local COMPONENT file. Don`t checkin.
+#
+
+init
+legacy_starter
+
+bio_ram
+test_db
+
+

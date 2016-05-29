@@ -1,0 +1,7 @@
+NEEDLIBS = zero jdk0 jdk1 zero_misc
+NEEDLIBS += bio
+NEEDLIBS += db_user
+SUBDIRS = jx/db/parser
+LIBNAME = db_parser
+NUMBERENV = int
+

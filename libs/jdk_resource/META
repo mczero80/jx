@@ -1,0 +1,7 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+SUBDIRS = java/util
+LIBNAME = jdk_resource
+NUMBERENV = float
+# contains Locale and ResourceBundle
+
+

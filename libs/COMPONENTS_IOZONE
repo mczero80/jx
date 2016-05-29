@@ -1,0 +1,12 @@
+#
+# local COMPONENT file. Don`t checkin.
+#
+
+init2
+
+pci_pc
+iozone
+test_fs
+
+
+

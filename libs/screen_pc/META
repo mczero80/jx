@@ -1,0 +1,9 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1 screen
+
+SUBDIRS = jx/screen
+
+LIBNAME = screen_pc
+CLASSFILES = jx/screen/*.class 
+NUMBERENV = int
+
+

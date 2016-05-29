@@ -1,0 +1,6 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1 awt_003 awt_peer
+SUBDIRS = java/applet
+LIBNAME = applet
+NUMBERENV = int
+
+

@@ -1,0 +1,7 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS += streams
+NEEDLIBS += wm
+SUBDIRS = jx/start
+LIBNAME = window_starter
+NUMBERENV = int
+

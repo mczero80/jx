@@ -1,0 +1,8 @@
+NEEDLIBS = zero jdk0 zero_misc
+
+SUBDIRS = jx/devices
+
+LIBNAME = devices
+CLASSFILES = jx/devices/*.class
+NUMBERENV = int
+

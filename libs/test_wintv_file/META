@@ -1,0 +1,19 @@
+NEEDLIBS  = zero jdk0 zero_misc jdk1 
+NEEDLIBS += keyboard keyboard_pc
+NEEDLIBS += pci
+NEEDLIBS += framebuffer
+NEEDLIBS += devices
+NEEDLIBS += fb
+NEEDLIBS += fb_devices
+NEEDLIBS += mga_if mga_hw
+NEEDLIBS += wintv_util wintv_if wintv
+
+NEEDLIBS += test_wintv
+NEEDLIBS += bio
+
+SUBDIRS = test/wintv/file
+
+LIBNAME = test_wintv_file
+NUMBERENV = int
+
+

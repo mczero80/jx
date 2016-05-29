@@ -1,0 +1,53 @@
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+
+#######################
+# Components
+#######################
+
+[Component PCI]
+InitLib      = pci_pc.jll
+StartClass   = jx/devices/pci/PCIGod
+
+[Component Framebuffer]
+StartClass   = jx/fb/StartFBDevice
+InitLib      = fb_devices.jll
+Args         = FB, jx/devices/fb/emulation/EmulFBFinder, fb_emul.jll, 279, null, jx/devices/fb/mga/MGA200Finder, mga_hw.jll, null, jx/devices/fb/vmware/VMWareSVGAFinder, fb_vmware.jll, null
+
+[Component WindowManager]
+StartClass   = jx/wm/WindowManagerDomain
+InitLib      = wm_impl.jll
+
+
+[Component WindowStream]
+StartClass    = jx/start/ShellWindow
+InitLib       = window_starter.jll
+Args          = WinStream
+
+[Component FSShell]
+StartClass    = jx/fsshell/Main
+InitLib       = fsshell.jll
+Args          = WinStream, FS
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = AllDomain
+HeapSize     = 30000000
+CodeSize     = 100000
+Components   = PCI, Framebuffer, WindowManager
+
+[Domain]
+Name         = Window
+HeapSize     = 30000000
+CodeSize     = 100000
+Components   = WindowStream, FSShell

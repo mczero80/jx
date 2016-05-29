@@ -1,0 +1,10 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += timer timer_pc
+
+SUBDIRS = test/timer
+
+LIBNAME = test_timer
+CLASSFILES = test/timer/*.class
+NUMBERENV = int
+
+

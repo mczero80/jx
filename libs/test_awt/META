@@ -1,0 +1,14 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS += awt_003 awt_peer
+NEEDLIBS += applet
+NEEDLIBS += fb devices 
+
+NEEDLIBS += wm wm_impl
+NEEDLIBS += collections
+
+SUBDIRS = test/awt
+
+LIBNAME = test_awt
+CLASSFILES = test/awt/*.class
+NUMBERENV = int
+

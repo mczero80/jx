@@ -1,0 +1,16 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += bio
+NEEDLIBS += buffer
+NEEDLIBS += fs_buffer
+NEEDLIBS += fs
+NEEDLIBS += fs_user
+NEEDLIBS += fs_user_impl
+NEEDLIBS += jdk_fs_mini
+
+SUBDIRS = java/io
+
+LIBNAME = jdk_fs
+NUMBERENV = int
+
+

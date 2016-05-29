@@ -1,0 +1,60 @@
+#
+#  JX boot configuration
+#
+
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+#######################
+# Components
+#######################
+
+[Component TestCreateSpeed]
+StartClass   = test/memobj/Main
+InitLib      = test_memobj.jll
+Args         = createSpeed, 1000
+
+[Component TestRevokeSpeed]
+StartClass   = test/memobj/Main
+InitLib      = test_memobj.jll
+Args         = revokeSpeed, 1000
+
+[Component TestSplitSpeed]
+StartClass   = test/memobj/Main
+InitLib      = test_memobj.jll
+Args         = splitSpeed, 1000
+
+[Component TestSpeedAll]
+StartClass   = test/memobj/Main
+InitLib      = test_memobj.jll
+Args         = speedAll, 1000, 100
+
+[Component TestSplit]
+StartClass   = test/memobj/Main
+InitLib      = test_memobj.jll
+Args         = split, 1000
+
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = Test
+HeapSize     = 300000
+CodeSize     = 50000
+Components   = TestSpeedAll
+
+#[Domain]
+#Name         = Test
+#HeapSize     = 300000
+#CodeSize     = 50000
+#Components   = TestSplit
+
+

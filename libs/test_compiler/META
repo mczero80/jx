@@ -1,0 +1,15 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += collections
+NEEDLIBS += classfile
+NEEDLIBS += compiler_env
+NEEDLIBS += zip
+
+SUBDIRS = test/compiler 
+
+LIBNAME    = test_compiler
+CLASSFILES = test/compiler/*.class
+NUMBERENV = float
+

@@ -1,0 +1,11 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS  += devices
+NEEDLIBS  += wm
+NEEDLIBS  += fb
+
+SUBDIRS = jx/devices/fb/emulation
+
+LIBNAME = fb_emul
+CLASSFILES = jx/devices/fb/emulation/*.class
+NUMBERENV = int
+

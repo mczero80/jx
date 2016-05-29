@@ -1,0 +1,24 @@
+#
+# local COMPONENT file. Don`t checkin.
+#
+
+init2
+
+pci_pc
+timer
+timer_pc
+fb_devices
+fb_emul
+framebuffer
+wintv_util
+wintv_if
+wintv
+mga_if
+mga_hw
+keyboard_pc
+test_wintv
+
+
+
+
+

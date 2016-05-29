@@ -1,0 +1,23 @@
+#
+# local COMPONENT file. Don`t checkin.
+#
+
+init2
+
+fb_devices
+test_wm
+
+net_devices
+net_protocols
+test_net
+test_timer
+webserver
+test_fs
+test_fsmulti
+bio_emul
+
+#awt
+
+#window_starter
+
+

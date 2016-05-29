@@ -1,0 +1,44 @@
+This directory contains the Java code for
+the different shared libraries.
+
+Each library has its own directory.
+
+Within this directory the directory structure
+corresponds to the package structure of the library.
+
+Description of the libraries:
+
+zero:      DEPs of domain zero
+
+jdk0:      the base jdk classes (jdk1.1)
+
+jdk1:      additional jdk classes (jdk1.1)
+
+jdk_2:     some classes conforming to jdk 1.2 API 
+
+bio:       block-I/O DEP
+
+bio_ram:   block-I/O implemenation storing blocks in memory 
+
+bio_ide:   block-I/O implemenation storing blocks on an IDE disk
+
+fs:        DEPs of the Filesystem
+
+fs_vfs:    implementation of a virtual filesystem (implementing fs)
+
+fs_javafs: implemenatation of the Java Filesystem (implementing fs)
+
+keyboard:  definition of a generic keyboard
+
+keyboard_pc: implementation of PC keyboard
+
+screen:    definition of a generic screen
+
+screen_pc: implementation of PC screen 
+
+compiler:  all classes of the bytecode-to-native compiler
+           that can be shared between compilers for different 
+           execution environments
+
+zip:       read a zip file
+

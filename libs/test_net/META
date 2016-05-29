@@ -1,0 +1,24 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS += buffer
+NEEDLIBS += collections
+NEEDLIBS += bio
+NEEDLIBS += devices
+NEEDLIBS += net
+NEEDLIBS += net_manager
+NEEDLIBS += net_manager_impl
+NEEDLIBS += shell
+NEEDLIBS += timer
+NEEDLIBS += pci
+NEEDLIBS += net_3c905
+NEEDLIBS += jdk_net
+NEEDLIBS += net_emul
+NEEDLIBS += net_devices
+NEEDLIBS += net_protocols
+NEEDLIBS += fs fs_user
+SUBDIRS = test/net
+
+LIBNAME = test_net
+CLASSFILES = test/net/*.class
+NUMBERENV = int
+
+

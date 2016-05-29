@@ -1,0 +1,78 @@
+#
+#  JC - Compiler Options
+#
+# -x:long                               enable longs (good luck)
+#
+# -v    				verbose compiler output
+# -v:cf:memobj:inline:plugins:...
+#
+# -debug                  		
+# -imcode                    		generate extra output for intermediate code 
+# 
+# -O                         		use some optimization (virtual -> static calls)
+# -O2                                   -O -inline -cf
+#
+# -fma                       		use fast memory access
+# -x:fmc                                use fast memory calls
+#
+# -revocationCLI                        translate the revocation check by disabling interrupts
+# -revocationSpinLock                   translate the revocation check by spinlocks
+#
+# -cf 	                                do constant falting
+# -cfor                                 lazy constant forwarding
+#
+# -doDirectSend                         directly invoke send_portal function without using proxy
+#                                       (default true)
+#
+# -x:noCheckCast:ports:...
+# -x:dumpStackMaps
+# -x:8BitChars
+# -x:32BitArrays
+# -x:writeBarrier
+# -x:mappedMemory
+# -x:mappedMemoryInline
+#
+# -inline        			inline set/get-methods
+# -inline:javafs/*:buffercache/*
+# -forceInline:*			force method to be inlined
+#
+# -alignCode                            align methods to 16 byte boundries 
+# -noAlignCode                          don't align methods to 16 byte boundries 
+#
+# -paranoid                  		do a lot of extra checks (see ExecEnviromentIA32.java)
+# -magic                     		check magic number at each time a reference check is done 
+#                            		together with -paranoid it makes even more checks
+#
+# -noStackSizeChk -noBoundChk 		switch off a some checks (stack, array boundaries, divs
+# -noDivChk -noNullChk        		null-pointer)
+# -noDbg
+# -x:noLineNumbers
+# -x:noBytecodeNumbers			!!! breaks exception handling !!!
+# -x:noClassInit			
+#
+# -exceptions -noExceptions           	enable/disable excpetion support
+#
+# -javadoc                     		generate javadoc files
+#
+#
+# ==== -DPROFILE ===============================================================================
+#
+# -profile                   add profiler support for all classes
+# -profile:test/fs/Main*     add profiler support for all classes starting with test/fs/Main...
+# -trace
+#
+# ==== -DEVENT_LOG =============================================================================
+#
+# -events                     insert recordEvent-Calls
+# -log                        insert recordEvent-Calls for each method
+# -log:test/compiler*
+#
+# ==== VERY AGGRESSIVE OPTIMIZATIONS ===========================================================
+#
+# -forceInline:*		 	force method to be inlined
+#
+# -replace:<interface>:<class>         	replace all calls to interface with calls to class
+# -replace:jx/fs/buffercache/BufferCache:buffercache/BufferCache
+#
+#export JCFLAGS = -O -x:long -x:noClassInit -noNullChk -noStackSizeChk -x:32BitArrays -v -v:regs -imcode
+export JCFLAGS = -O -x:32BitArrays 

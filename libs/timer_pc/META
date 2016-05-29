@@ -1,0 +1,8 @@
+NEEDLIBS = zero jdk0 zero_misc timer rtc
+
+SUBDIRS = timerpc
+
+LIBNAME = timer_pc
+CLASSFILES = timerpc/*.class
+NUMBERENV = int
+

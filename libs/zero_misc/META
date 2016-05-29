@@ -1,0 +1,9 @@
+NEEDLIBS = zero zero_env jdk0
+
+SUBDIRS = jx/zero jx/zero/debug jx/zero/memory jx/zero/timing
+
+LIBNAME = zero_misc
+CLASSFILES = jx/zero/*.class jx/zero/*/*.class
+NUMBERENV = int
+
+

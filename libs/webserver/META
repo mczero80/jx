@@ -1,0 +1,10 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS += jdk_net
+NEEDLIBS += fs
+SUBDIRS = test/net
+
+LIBNAME = webserver
+CLASSFILES = test/net/*.class
+NUMBERENV = int
+
+

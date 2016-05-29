@@ -1,0 +1,14 @@
+#
+# local COMPONENT file. Don`t checkin.
+#
+
+init2
+
+pci_pc
+fb_devices
+wm_impl
+test_wm
+keyboard_pc
+fb_emul
+
+

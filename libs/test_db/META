@@ -1,0 +1,14 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS += db
+NEEDLIBS += buffer
+NEEDLIBS += bio
+NEEDLIBS += db_user
+NEEDLIBS += db_parser
+
+SUBDIRS = test/db
+
+LIBNAME = test_db
+CLASSFILES = test/db/*.class
+NUMBERENV = int
+
+

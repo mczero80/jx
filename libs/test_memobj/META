@@ -1,0 +1,9 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+
+SUBDIRS = test/memobj
+
+LIBNAME = test_memobj
+CLASSFILES = test/memobj/*.class
+NUMBERENV = int
+
+

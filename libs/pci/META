@@ -1,0 +1,7 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS += devices
+
+SUBDIRS = jx/devices/pci
+LIBNAME = pci
+NUMBERENV = int
+MAINTAINER = felser@cs.fau.de

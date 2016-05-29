@@ -1,0 +1,16 @@
+NEEDLIBS  = zero jdk0 zero_misc jdk1
+NEEDLIBS  += buffer
+NEEDLIBS  += timer
+NEEDLIBS  += devices
+NEEDLIBS  += net
+NEEDLIBS  += net_misc
+NEEDLIBS  += net_ether
+NEEDLIBS  += net_ip
+
+SUBDIRS = jx/net/protocol/arp
+
+LIBNAME = net_arp
+CLASSFILES = jx/net/protocol/arp/*.class
+NUMBERENV = int 
+
+

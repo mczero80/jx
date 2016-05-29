@@ -1,0 +1,8 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1 fb devices
+
+SUBDIRS = jx/wm jx/wm/message jx/wm/bitmap
+
+LIBNAME = wm
+#CLASSFILES = jx/wm/*.class jx/wm/message/*.class
+NUMBERENV = int
+

@@ -1,0 +1,40 @@
+#
+#  JX boot configuration
+#
+
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+
+#######################
+# Components
+#######################
+
+[Component Map]
+StartClass   = test/memobj/Main
+InitLib      = test_memobj.jll
+#Args         = map
+Args         = mapSpeed, 1000000, 1000
+
+[Component DomainCreate]
+StartClass   = test/portal/scale/CreateSpeed
+InitLib      = test_portal.jll
+
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = Test
+HeapSize     = 10000000
+CodeSize     = 50000
+Components   = DomainCreate
+
+

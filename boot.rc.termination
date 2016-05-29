@@ -1,0 +1,31 @@
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+
+#######################
+# Components
+#######################
+
+[Component Term]
+InitLib      = test_termination.jll
+StartClass   = test/termination/Main
+
+[Component TermIO]
+InitLib      = test_termination.jll
+StartClass   = test/termination/TermIO
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = AllDomain
+HeapSize     = 5000000
+CodeSize     = 100000
+Components   = Term

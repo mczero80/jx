@@ -1,0 +1,20 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += collections
+NEEDLIBS += classfile
+#NEEDLIBS += verifier
+
+SUBDIRS  = jx/compiler
+SUBDIRS += jx/compiler/execenv
+SUBDIRS += jx/compiler/imcode
+SUBDIRS += jx/compiler/nativecode
+SUBDIRS += jx/compiler/symbols
+
+LIBNAME    = compiler
+CLASSFILES = jx/compiler/*.class jx/compiler/*/*.class
+NUMBERENV  = float
+
+MAINTAINER = wawi@cs.fau.de
+

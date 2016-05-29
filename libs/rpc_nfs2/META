@@ -1,0 +1,31 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += timer
+NEEDLIBS += buffer
+NEEDLIBS += devices
+NEEDLIBS += net
+NEEDLIBS += net_manager
+NEEDLIBS += xdr
+NEEDLIBS += rpc
+NEEDLIBS += fs
+NEEDLIBS += rpc_if_mount1
+NEEDLIBS += rpc_if_nfs2
+NEEDLIBS += rpc_if_bind2
+NEEDLIBS += rpc_bind2
+
+SUBDIRS = jx/rpcsvc/nfs2
+
+EXTRACLEAN = *_Stub.java
+
+RPC_OUTPUTDIR = jx/rpcsvc/nfs2
+RPC_INTERFACES = jx.rpcsvc.nfs2.NFSProc
+RPC_COMPONENTS = rpc rpc_if_nfs2
+
+LIBNAME    = rpc_nfs2
+CLASSFILES = jx/rpcsvc/nfs2/*.class 
+NUMBERENV  = int
+
+SETVAR = jx/rpcsvc/nfs2/NFSProc_Impl.debug_nfs:true
+

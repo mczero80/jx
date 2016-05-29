@@ -1,0 +1,87 @@
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+
+#######################
+# Components
+#######################
+
+[Component PCI]
+InitLib      = pci_pc.jll
+StartClass   = jx/devices/pci/PCIGod
+
+[Component PCI]
+InitLib      = pci_pc.jll
+StartClass   = jx/devices/pci/PCIGod
+
+[Component Timer]
+InitLib      = timer_pc.jll 
+StartClass   = timerpc/StartTimer
+Args         = TimerManager
+
+[Component NetDevices]
+InitLib      = net_devices.jll
+StartClass   = jx/net/StartNetDevice
+Args         = NIC, eth0, 8:0:6:28:63:40
+
+[Component NetProtos]
+InitLib      = net_protocols.jll 
+StartClass   = jx/net/protocols/StartNetworkProtocols
+Args         = NIC, TimerManager, NET
+#InheritThread = jx/net/protocol/tcp/TCPSocket
+
+[Component Rlogin]
+StartClass    = jx/rlogin/RloginServer
+InitLib       = rlogin.jll
+Args          = NET, 23, FS, jx/fsshell/Main, fsshell.jll
+
+[Component BioRAM]
+InitLib      = test_fs.jll
+StartClass   = test/fs/BioRAMDomain
+Args         = BIOFS
+
+[Component FSFormat]
+StartClass   = test/fs/FSDomain
+InitLib      = test_fs.jll
+Args         = BIOFS, FS, -format
+
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = "PCIDomain"
+HeapSize     = 300000
+CodeSize     = 50000
+Components   = PCI
+
+[Domain]
+Name         = "NicDomain"
+HeapSize     = 20000000
+CodeSize     = 50000
+Components   = Timer, NetDevices
+
+[Domain]
+Name         = "NetDomain"
+HeapSize     = 30000000
+CodeSize     = 50000
+Components   = NetProtos
+
+[Domain]
+Name         = "FS"
+HeapSize     = 30000000
+CodeSize     = 50000
+Components   = BioRAM, FSFormat 
+
+[Domain]
+Name         = Rlogin
+HeapSize     = 10000000
+CodeSize     = 100000
+Components   = Rlogin

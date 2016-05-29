@@ -1,0 +1,39 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS += buffer
+NEEDLIBS += collections
+NEEDLIBS += devices
+NEEDLIBS += net
+NEEDLIBS += net_manager
+NEEDLIBS += shell
+NEEDLIBS += timer
+NEEDLIBS += pci
+NEEDLIBS += net_3c905
+NEEDLIBS += scheduler
+
+
+# components needed for BIND and MOUNT test
+NEEDLIBS += rpc
+NEEDLIBS += xdr
+NEEDLIBS += rpc_if_bind2
+NEEDLIBS += rpc_bind2
+NEEDLIBS += rpc_if_mount1
+NEEDLIBS += rpc_if_nfs2
+NEEDLIBS += rpc_mount1
+
+
+# components needed for NFS test
+NEEDLIBS += fs
+NEEDLIBS += fs_vfs 
+NEEDLIBS += rpc_nfs2
+
+
+# components needed for NFS/javafs test
+NEEDLIBS += bio
+
+SUBDIRS = test/nfs
+
+LIBNAME = test_nfs
+NUMBERENV = int
+MAINTAINER=golm@cs.fau.de
+
+

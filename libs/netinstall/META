@@ -1,0 +1,10 @@
+NEEDLIBS  = zero jdk0 zero_misc jdk1
+NEEDLIBS  += jdk_net
+NEEDLIBS  += jdk_fs
+NEEDLIBS  += remote_exec_format
+
+SUBDIRS = jx/netinstall
+LIBNAME = netinstall
+NUMBERENV = int 
+
+

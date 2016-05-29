@@ -1,0 +1,81 @@
+#
+#  JX boot configuration
+#
+
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+
+#######################
+# Components
+#######################
+
+[Component PCI]
+InitLib      = pci_pc.jll
+StartClass   = jx/devices/pci/PCIGod
+
+[Component Timer]
+InitLib      = timer_pc.jll 
+StartClass   = timerpc/StartTimer
+Args         = TimerManager
+
+[Component BioRAM]
+InitLib      = test_fs.jll
+StartClass   = test/fs/BioRAMDomain
+Args         = BIOFS
+
+[Component FSFormat]
+StartClass   = test/fs/FSDomain
+InitLib      = test_fs.jll
+InheritThread = vfs/FSImpl
+Args         = BIOFS, FS, -format
+
+[Component FS]
+StartClass   = test/fs/FSDomain
+InitLib      = test_fs.jll
+Args         = BIOFS, FS
+
+[Component IOZone]
+StartClass   = test/fs/IOZoneBench
+InitLib      = test_fs.jll
+Args         = FS, 4, 512, 4096, 16777216
+
+[Component EmulDisk]
+StartClass   = jx/bioemul/Main
+InitLib      = bio_emul.jll
+Args         = BIOFS
+
+[Component FSMulti]
+StartClass   = test/fsmulti/Main
+InitLib      = test_fsmulti.jll
+Args         = FS
+
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = Blocks
+HeapSize     = 10000000
+CodeSize     = 50000
+#Components   = PCI,  Timer, BioRAM
+Components   = EmulDisk
+
+[Domain]
+Name         = FS
+HeapSize     = 10000000
+CodeSize     = 50000
+Components   = FSFormat
+
+[Domain]
+Name         = Test
+HeapSize     = 10000000
+CodeSize     = 50000
+Components   = FSMulti

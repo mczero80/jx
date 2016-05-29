@@ -1,0 +1,26 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += timer
+NEEDLIBS += buffer
+NEEDLIBS += devices
+NEEDLIBS += net
+NEEDLIBS += xdr
+NEEDLIBS += net_manager
+NEEDLIBS += rpc
+NEEDLIBS += rpc_if_bind2
+
+SUBDIRS = jx/rpcsvc/bind2
+
+EXTRACLEAN = *_Stub.java *_Skel.java
+
+RPC_OUTPUTDIR  = jx/rpcsvc/bind2
+RPC_INTERFACES = jx.rpcsvc.bind2.RPCBind
+RPC_COMPONENTS = rpc rpc_if_bind2
+
+LIBNAME    = rpc_bind2
+CLASSFILES = jx/rpcsvc/bind2/*.class 
+NUMBERENV  = int
+
+

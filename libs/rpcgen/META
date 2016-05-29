@@ -1,0 +1,18 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += classfile
+NEEDLIBS += collections
+NEEDLIBS += zip
+NEEDLIBS += classstore
+NEEDLIBS += xdr
+NEEDLIBS += rpc
+
+SUBDIRS = jx/rpcgen
+
+LIBNAME    = rpcgen
+CLASSFILES = jx/rpcgen/*.class 
+NUMBERENV  = int
+
+

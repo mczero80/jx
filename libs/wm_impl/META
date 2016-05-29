@@ -1,0 +1,12 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1 pci collections devices fb
+#NEEDLIBS += timer timer_pc
+NEEDLIBS += wm
+NEEDLIBS += keyboard
+NEEDLIBS += mouse
+
+SUBDIRS = jx/wm/decorator jx/wm 
+
+LIBNAME = wm_impl
+CLASSFILES = jx/wm/decorator/*.class jx/wm/*.class
+NUMBERENV = int
+

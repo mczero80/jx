@@ -1,0 +1,8 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1 jdk_charstream
+NEEDLIBS += list
+SUBDIRS = java/awt java/awt/event java/awt/image java/awt/color java/awt/peer gnu/java/awt
+#SUBDIRS = java/awt java/awt/event java/awt/image java/awt/color java/awt/peer java/awt/datatransfer gnu/java/awt
+LIBNAME = awt_003
+NUMBERENV = int
+
+

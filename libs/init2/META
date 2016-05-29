@@ -1,0 +1,13 @@
+NEEDLIBS = zero jdk0 zero_misc
+#NEEDLIBS += scheduler
+#NEEDLIBS += secmgr_impl
+NEEDLIBS += bootrc
+
+SUBDIRS = jx/init
+
+LIBNAME = init2
+NUMBERENV = int
+MAINTAINER = golm@cs.fau.de
+
+
+

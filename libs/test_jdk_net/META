@@ -1,0 +1,6 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += jdk_net
+SUBDIRS = test/jdknet
+LIBNAME = test_jdk_net
+NUMBERENV = int
+

@@ -1,0 +1,5 @@
+NEEDLIBS = zero jdk0 zero_misc bio
+SUBDIRS = jx/bioemul
+LIBNAME = bio_emul
+NUMBERENV = int
+

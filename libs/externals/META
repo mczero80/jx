@@ -1,0 +1,21 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += jdk_fs
+NEEDLIBS += jdk_net
+NEEDLIBS += fs_user
+NEEDLIBS += jdk_text
+NEEDLIBS += jdk_localize
+NEEDLIBS += jdk_resourceboundles
+NEEDLIBS += jdk_collections
+NEEDLIBS += jdk_collections_impl
+NEEDLIBS += jdk_objectstream
+NEEDLIBS += jdk_sql
+NEEDLIBS += jdk_url
+NEEDLIBS += jdk_security
+NEEDLIBS += jdk_security_base
+
+SUBDIRS = java/lang java/io java/util java/net javax javax/net javax/net/ssl javax/security javax/security/cert java/util/zip sun sun/security sun/security/provider com/sun com/sun/net com/sun/net/ssl com/sun/net/ssl/internal com/sun/net/ssl/internal/ssl java/beans sun/tools sun/tools/javac java/applet
+LIBNAME = externals
+NUMBERENV = int
+
+

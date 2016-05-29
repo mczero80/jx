@@ -1,0 +1,10 @@
+NEEDLIBS = zero jdk0 zero_misc bio
+NEEDLIBS += sleep
+NEEDLIBS += timer timer_pc
+
+SUBDIRS = bioram
+
+LIBNAME = bio_ram
+CLASSFILES = bioram/*.class
+NUMBERENV = int
+

@@ -1,0 +1,11 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += jdk1
+SUBDIRS = jx/shell
+LIBNAME    = shell
+NUMBERENV  = int
+MAINTAINER = golm@cs.fau.de
+
+
+

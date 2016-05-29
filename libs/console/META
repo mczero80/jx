@@ -1,0 +1,9 @@
+NEEDLIBS  = zero jdk0 zero_misc 
+
+SUBDIRS = jx/console
+
+LIBNAME = console
+CLASSFILES = jx/console/*.class 
+NUMBERENV = int 
+
+

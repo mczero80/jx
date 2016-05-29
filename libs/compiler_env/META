@@ -1,0 +1,21 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += collections
+NEEDLIBS += classfile
+#NEEDLIBS += verifier
+NEEDLIBS += compiler
+#NEEDLIBS += compiler_x86
+NEEDLIBS += zip
+NEEDLIBS += compspec
+NEEDLIBS += formats
+
+SUBDIRS = jx/compiler jx/compiler/persistent jx/compiler/vtable jx/compiler/plugins
+
+LIBNAME    = compiler_env
+CLASSFILES = jx/compiler/*.class jx/compiler/*/*.class 
+NUMBERENV = float
+
+MAINTAINER = wawi@cs.fau.de
+

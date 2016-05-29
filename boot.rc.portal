@@ -1,0 +1,35 @@
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+
+#######################
+# Components
+#######################
+
+[Component Portal]
+InitLib      = test_portal.jll
+StartClass   = test/portal/SimpleTest
+
+[Component PortalGC]
+InitLib      = test_portal.jll
+StartClass   = test/portal/GCTest
+
+[Component PortalPerf]
+InitLib      = test_portal.jll
+StartClass   = test/portal/perf/PortalPerf
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = AllDomain
+HeapSize     = 5000000
+CodeSize     = 100000
+Components   = PortalPerf

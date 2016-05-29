@@ -1,0 +1,12 @@
+NEEDLIBS = zero jdk0 zero_misc scheduler
+#NEEDLIBS += secmgr_impl
+NEEDLIBS += bootrc
+
+SUBDIRS = jx/init
+
+LIBNAME = init
+CLASSFILES = jx/init/*.class
+NUMBERENV = int
+
+
+

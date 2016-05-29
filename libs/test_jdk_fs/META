@@ -1,0 +1,16 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += bio
+NEEDLIBS += buffer
+NEEDLIBS += fs_buffer
+NEEDLIBS += fs
+NEEDLIBS += fs_user
+NEEDLIBS += jdk_fs
+
+SUBDIRS = test/jdkfs
+
+LIBNAME = test_jdk_fs
+CLASSFILES = test/jdkfs/*.class
+NUMBERENV = int
+
+

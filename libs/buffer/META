@@ -1,0 +1,9 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += list
+SUBDIRS = jx/buffer jx/buffer/multithread jx/buffer/separator
+LIBNAME    = buffer
+NUMBERENV  = int
+
+

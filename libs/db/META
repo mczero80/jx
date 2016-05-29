@@ -1,0 +1,9 @@
+NEEDLIBS = zero jdk0 jdk1 zero_misc
+NEEDLIBS += bio
+NEEDLIBS += db_user db_types_impl
+
+SUBDIRS = db/avltree db/com db/systembuffer db/treemap db/bxtree db/dbindex db/list db/syscat db/tid db/com/comparators db/systembuffer/firststage db/systembuffer/memorybuf db/systembuffer/strategy db/systembuffer/sortingbuf db/systembuffer/strategy/lru db/systembuffer/collections db/collections  
+
+LIBNAME = db
+NUMBERENV = int
+

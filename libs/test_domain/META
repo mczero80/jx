@@ -1,0 +1,9 @@
+NEEDLIBS = zero
+
+SUBDIRS = jx/test
+
+LIBNAME = test_domain
+CLASSFILES = jx/test/*.class
+NUMBERENV = int
+
+

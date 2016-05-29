@@ -1,0 +1,17 @@
+#
+# local COMPONENT file. Don`t checkin.
+#
+
+init2
+pci_pc
+net_devices
+net_protocols
+test_net
+test_timer
+bio_readonly
+webserver
+test_fs
+test_nfs
+
+
+

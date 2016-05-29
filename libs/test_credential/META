@@ -1,0 +1,6 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+SUBDIRS = test/credential
+LIBNAME = test_credential
+NUMBERENV = int
+
+

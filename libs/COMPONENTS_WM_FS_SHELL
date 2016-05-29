@@ -1,0 +1,16 @@
+#
+# local COMPONENT file. Don`t checkin.
+#
+
+init2
+
+pci_pc
+fsshell
+fb_devices
+wm_impl
+test_wm
+window_starter
+
+
+
+

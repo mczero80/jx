@@ -1,0 +1,9 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+
+SUBDIRS = jx/start
+
+LIBNAME = legacy_starter
+CLASSFILES = jx/start/*.class
+NUMBERENV = int
+
+

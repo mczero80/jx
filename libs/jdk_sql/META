@@ -1,0 +1,10 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += jdk_charstream
+NEEDLIBS += jdk_math
+NEEDLIBS += jdk_text
+SUBDIRS = java/sql
+LIBNAME = jdk_sql
+NUMBERENV = int
+
+

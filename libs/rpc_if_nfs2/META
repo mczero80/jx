@@ -1,0 +1,16 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += xdr
+NEEDLIBS += rpc
+
+SUBDIRS = jx/rpcsvc/nfs2
+
+EXTRACLEAN = *_Stub.java
+
+LIBNAME    = rpc_if_nfs2
+CLASSFILES = jx/rpcsvc/nfs2/*.class 
+NUMBERENV  = int
+
+

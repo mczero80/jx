@@ -1,0 +1,81 @@
+INTRO
+
+JX is an operating system that is structured from the ground up to use a type-safe instruction set as 
+its sole protection mechanism. In a type-safe instruction set instructions (operations) are applied 
+to typed operands that refer to typed data entities. There are strict rules that describe what types of 
+operands can refer to what types of data entities and what operations can be applied to them.
+
+Using a type-safe instruction set instead of the traditional address-based protection has a number 
+of advantages. The robustness of the system is improved because many kinds of programming 
+errors can be detected at an early stage in the development by using the type system. An improved 
+robustness has a positive effect on the security and reliability of the system, although additional 
+mechanisms are needed to maintain a secure state. The type-safe instruction set is a very fine-
+grained protection mechanism that allows to create fine-grained protection domains and enables 
+an incremental extensibility of the system. The JX architecture contains a communication mecha-
+nism that can be used for highly-efficient but unprotected communication inside a protection 
+domain and for slower communication across protection boundaries. Because the programmer 
+can use the same abstraction for intra-domain and inter-domain communication program module 
+boundaries become independent from protection-domain boundaries and the system can be con-
+figured according to its intended use on a scale that is bounded by the two extremes of placing 
+each module in its own protection domain or placing all modules in the same domain. System that 
+are dedicated to a very specific task, such as file-server appliances, benefit from the performance 
+advantages of running all code in the same protection domain, while a platform that allows to run 
+untrusted code, such as an agent execution platform, benefits from the ability to spawn fine-
+grained protection domains. A system that runs untrusted and potentially malicious code must be 
+able to completely isolate this code. This does not only include restricting access to information 
+that is available on the host but also restricting access to resources.
+
+
+
+The JX architecture was designed with the following objectives:
+
+- Support system-level programming at a high abstraction level without excessive performance loss
+
+- Support static OS configuration for systems with dedicated purpose, such as appliances
+
+- Support dynamic OS extension for general-purpose systems
+
+- Support the secure execution of untrusted mobile code and allow this code to implement func-
+  tionality that usually is considered "system-level", such as file systems, network protocols or net-
+  work file systems
+
+
+
+
+IMPLEMENTATION
+
+JX was implemented using the Java bytecode as its type-safe instruction set. When this project 
+started in 1997 the Java bytecode was the only type-safe instruction set that was in widespread 
+use. This was an important point because all JX applications must be available in the type-safe 
+instruction set. In the current JX system this means that applications must be provided as Java 
+class files, but they must not necessarily be written in Java. 
+The code consists of the microkernel that contains a Java runtime environment and several components
+provided in Java bytecode form. Each component is classified as either an interface component, a 
+service component, or a library component. The library component is a typical class library, which
+contains data structures and algorithms that are used by other components. The service component
+implements a specific system service, such as a file system, a window manager, or a device driver.
+Service components are accessed via a interface components. The interface components contain all 
+interfaces and classes that are necessary to communicate with the service.
+
+
+LEGAL ISSUES
+
+The Java runtime environment of JX is a clean-room implementation of the JVM specification. We
+have not obtained a Java license from Sun and therefore the system can not be called a
+Java system.
+The JX source code is released under the GPL with an exception statement. The exception allows
+you to use JX together with closed-source code as long as you only use the provided interface
+components.
+(see also http://www.gnu.org/licenses/gpl-faq.html)
+
+
+
+AVAILABILITY
+
+The JX source code is available from
+http://jxos.org/Download
+ and 
+http://www4.informatik.uni-erlangen.de/Projects/JX/Download
+
+The source tree contains a file INSTALL with detailed installation instructions.
+

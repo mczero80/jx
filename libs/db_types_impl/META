@@ -1,0 +1,9 @@
+NEEDLIBS = zero jdk0 zero_misc 
+NEEDLIBS += db_user
+SUBDIRS = jx/db/mytypes jx/db/mytypes/converters jx/db/mytypes/comparators
+
+LIBNAME = db_types_impl
+CLASSFILES = jx/db/mytypes/*.class jx/db/mytypes/converters/*.class jx/db/mytypes/comparators/*.class
+NUMBERENV = int
+
+

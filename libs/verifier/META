@@ -1,0 +1,17 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += classfile
+NEEDLIBS += collections
+NEEDLIBS += zip
+NEEDLIBS += classstore
+
+SUBDIRS = jx/verifier jx/verifier/bytecode jx/verifier/typecheck jx/verifier/npa jx/verifier/fla jx/verifier/wcet jx/verifier/checkInstruction
+
+LIBNAME    = verifier
+CLASSFILES = jx/verifier/*.class jx/verifier/typecheck/*.class jx/verifier/bytecode/*.class jx/verifier/npa/*.class jx/verifier/fla/*.class jx/verifier/wcet/*.class jx/verifier/checkInstruction/*.class
+
+NUMBERENV  = int
+
+

@@ -1,0 +1,9 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += jdk_collections
+NEEDLIBS += jdk_objectstream
+SUBDIRS = java/lang java/util 
+LIBNAME = jdk_collections_impl
+NUMBERENV = int
+
+

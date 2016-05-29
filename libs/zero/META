@@ -1,0 +1,8 @@
+NEEDLIBS = 
+SUBDIRS = jx/zero jx/zero/debug jx/zero/scheduler
+LIBNAME = zero
+IFDEPENDSON = jdk_zero
+NUMBERENV = int
+MAINTAINER = golm@cs.fau.de
+
+

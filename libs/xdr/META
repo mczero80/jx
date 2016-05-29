@@ -1,0 +1,12 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += jdk1
+
+
+SUBDIRS = jx/xdr
+
+LIBNAME    = xdr
+CLASSFILES = jx/xdr/*.class 
+NUMBERENV  = int
+

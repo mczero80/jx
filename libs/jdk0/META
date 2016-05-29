@@ -1,0 +1,9 @@
+NEEDLIBS = zero
+SUBDIRS = java/io java/lang java/util java/lang/reflect
+LIBNAME = jdk0
+NUMBERENV = float
+EXTENDS = jdk_zero
+MAPPING0 = java/lang/String.value:value
+MAPPING1 = java/lang/String.value:value
+MAINTAINER = golm@cs.fau.de
+

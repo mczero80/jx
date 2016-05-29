@@ -1,0 +1,22 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += jdk_fs
+NEEDLIBS += jdk_net
+NEEDLIBS += fs_user
+NEEDLIBS += jdk_text
+NEEDLIBS += jdk_localize
+NEEDLIBS += jdk_resourceboundles
+NEEDLIBS += jdk_collections
+NEEDLIBS += jdk_collections_impl
+NEEDLIBS += jdk_objectstream
+NEEDLIBS += jdk_sql
+NEEDLIBS += jdk_url
+NEEDLIBS += jdk_security
+NEEDLIBS += jdk_security_base
+NEEDLIBS += awt
+
+SUBDIRS = java/beans
+LIBNAME = jdk_beans
+NUMBERENV = int
+
+

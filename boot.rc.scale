@@ -1,0 +1,37 @@
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+
+#######################
+# Components
+#######################
+
+[Component Scale]
+InitLib      = test_portal.jll
+StartClass   = test/portal/scale/Acceptor
+Args       = 1000000, bla
+
+[Component Scale1]
+InitLib      = test_portal.jll
+StartClass   = test/portal/scale/DomainExhauster
+
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = AllDomain
+CodeSize     = 100000
+Components   = Scale1
+GarbageCollector = copying
+HeapSize         = 800000
+
+
+

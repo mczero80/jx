@@ -1,0 +1,6 @@
+NEEDLIBS = zero jdk0
+SUBDIRS = jx/devices
+LIBNAME = mouse
+NUMBERENV = int 
+
+

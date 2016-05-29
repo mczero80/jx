@@ -1,0 +1,46 @@
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+
+#######################
+# Components
+#######################
+
+[Component GCTest]
+InitLib      = test_gc.jll
+StartClass   = test/gc/Main
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = Domain1
+CodeSize     = 100000
+Components   = GCTest
+GarbageCollector = copying
+HeapSize         = 5000000
+
+[Domain]
+Name         = Domain2
+CodeSize     = 100000
+Components   = GCTest
+GarbageCollector = chunked
+GCHeapInitial    = 200000
+GCHeapChunk      = 20000
+GCStartGC        = 500000
+
+[Domain]
+Name         = Domain3
+CodeSize     = 100000
+Components   = GCTest
+GarbageCollector = chunked
+GCHeapInitial    = 100000
+GCHeapChunk      = 10000
+GCStartGC        = 200000

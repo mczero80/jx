@@ -1,0 +1,15 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += jdk1
+NEEDLIBS += zero_misc 
+NEEDLIBS += net
+NEEDLIBS += net_misc
+NEEDLIBS += net_ip
+NEEDLIBS += list
+NEEDLIBS += net_manager
+NEEDLIBS += timer_pc
+
+SUBDIRS = jx/net/protocol/tcp
+LIBNAME = net_tcp_akbp
+NUMBERENV = int
+MAINTAINER = felser@cs.fau.de

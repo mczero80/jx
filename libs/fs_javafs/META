@@ -1,0 +1,17 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS += buffer
+NEEDLIBS += collections
+NEEDLIBS += bio
+NEEDLIBS += fs
+NEEDLIBS += fs_buffer
+
+# ONLY NEEDED FOR PERFORMANCE TEST
+#NEEDLIBS += fs_buffer_impl
+
+SUBDIRS = javafs
+
+LIBNAME = fs_javafs
+CLASSFILES = javafs/*.class
+NUMBERENV = int
+
+

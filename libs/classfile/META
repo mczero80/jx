@@ -1,0 +1,13 @@
+#
+# jx/classfile/constantpool/ConstantPool.noLongs = true !!
+#
+
+NEEDLIBS = zero jdk0 zero_misc jdk1
+
+SUBDIRS = jx/classfile/datatypes jx/classfile/constantpool jx/classfile
+
+LIBNAME = classfile
+CLASSFILES = jx/classfile/*.class jx/classfile/*/*.class
+NUMBERENV = float
+
+

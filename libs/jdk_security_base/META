@@ -1,0 +1,7 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += jdk1
+SUBDIRS = java/security java/lang
+LIBNAME = jdk_security_base
+NUMBERENV = int
+
+

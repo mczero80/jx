@@ -1,0 +1,4 @@
+#!/bin/sh
+export CLASSPATH=${JAVACCLASSES}:${EMULATIONCLASSPATH}:${JXEDOMAINS}/compspec/classes
+
+${JAVA}  -mx50000000 jx.compspec.StartBuilder $* -components ${JXROOT}/libs/COMPONENTS -compdir ${JXROOT}/libs/ ${JDK} -javacpath ${JAVACCLASSES}; mv ${JXROOT}/code.zip ${JXROOT}/code-uncompressed.zip ; cat ${JXROOT}/code-uncompressed.zip | gzip --fast -c > ${JXROOT}/code.zip

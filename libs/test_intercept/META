@@ -1,0 +1,12 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS += secmgr_impl
+NEEDLIBS += test_fs_user
+NEEDLIBS += bio
+
+SUBDIRS = test/intercept
+
+LIBNAME = test_intercept
+CLASSFILES = test/intercept/*.class
+NUMBERENV = int
+
+

@@ -1,0 +1,9 @@
+#
+# local COMPONENT file. Don`t checkin.
+#
+
+init2
+legacy_starter
+
+test_termination
+test_portal

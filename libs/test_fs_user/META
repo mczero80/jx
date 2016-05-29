@@ -1,0 +1,16 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += bio
+NEEDLIBS += buffer
+NEEDLIBS += fs_buffer
+NEEDLIBS += fs
+NEEDLIBS += fs_user
+NEEDLIBS += formats
+
+SUBDIRS = test/fsuser
+
+LIBNAME = test_fs_user
+CLASSFILES = test/fsuser/*.class
+NUMBERENV = int
+
+

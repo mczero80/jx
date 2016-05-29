@@ -1,0 +1,554 @@
+package metaxa.os.devices.net;
+
+import java.util.*;
+import metaxa.os.devices.*;
+//import metaxa.os.devices.pci.*;
+import jx.zero.*;
+import metaxa.os.Ether;
+import metaxa.os.IP;
+import metaxa.os.UDP;
+import metaxa.os.ARP;
+import metaxa.os.EtherPacketsQueue;
+import metaxa.os.tcp.*;
+import java.lang.*;
+
+public class ComInit extends Softlimits implements Runnable {
+
+    //
+    // from pci.h include of linux - class definitions for network interfaces
+    //
+
+    final static int PCI_BASE_CLASS_NETWORK = 0x02;
+    final static int PCI_CLASS_NETWORK_ETHERNET = 0x0200;
+    final static int PCI_CLASS_NETWORK_TOKEN_RING = 0x0201;
+    final static int PCI_CLASS_NETWORK_FDDI = 0x0202;
+    final static int PCI_CLASS_NETWORK_ATM = 0x0203;
+    final static int PCI_CLASS_NETWORK_OTHER = 0x0280;
+    
+
+    final static int ID_DEVICE_MASK = 0xffff0000; 
+    final static int ID_DEVICE_OFFSET_BIT = 16; 
+    final static int ID_VENDOR_MASK = 0x0000ffff; 
+    final static int ID_VENDOR_OFFSET_BIT = 0; 
+   
+    //
+    // Supported PCI device id's
+    //
+    
+    final static int NIC_VENDOR_ID = 0x10B7;            // 3COM Vendor ID
+    final static int NIC_PCI_DEVICE_ID_9055 = 0x9055;
+    final static int NIC_PCI_DEVICE_ID_9056 = 0x9056;
+    final static int NIC_PCI_DEVICE_ID_9058 = 0x9058;
+    final static int NIC_PCI_DEVICE_ID_9004 = 0x9004;
+    final static int NIC_PCI_DEVICE_ID_9005 = 0x9005;
+    final static int NIC_PCI_DEVICE_ID_9006 = 0x9006;
+    final static int NIC_PCI_DEVICE_ID_900A = 0x900A;
+    final static int NIC_PCI_DEVICE_ID_905A = 0x905A;
+    final static int NIC_PCI_DEVICE_ID_9200 = 0x9200;
+    final static int NIC_PCI_DEVICE_ID_9800 = 0x9800;
+    final static int NIC_PCI_DEVICE_ID_9805 = 0x9805;
+    
+    //
+    // ASIC versions - currently not used
+    //
+
+    final static int NIC_ASIC_CYCLONE_KRAKATOA_LUCENT = 0x0;
+    final static int NIC_ASIC_HURRICANE_TORNADO_LUCENT = 0x1;
+    final static int NIC_ASIC_HURRICANE_NATIONAL = 0x2;
+    final static int NIC_ASIC_HURRICANE_TORNADO_BROADCOM = 0x3;
+
+    // 
+    // from PCIBus.java - for method doBasicConfig for checking, wether busmastering is already set by the bios
+    // because all these things are private in PCIBus.java, I have to put it here too :-)
+    //
+
+    static final int REG_CMD = 0x01; 
+    static final int CMD_MASK_BM = 0x00000004;
+
+    //
+    // Registers to set the IOBase address or the MEMBase address
+    //
+    // IMPORTANT - THESE ARE THE NUMBERS OF THE PCI-REGISTERS, NOT THE ADDRESSES 
+
+    static final int PCI_BASE_ADDRESS_0 = 4;   // IOBaseAddress  
+    static final int PCI_BASE_ADDRESS_1 = 5;   // MemBaseAddress
+
+    //
+    // Registers for additional information
+    //
+
+    static final int PCI_REVISION_ID = 2;       // Revision ID - just for 3C90xB NICs - NOTE: number of the register
+ 
+  // the same as above - these are the numbers of the register
+    static final int PCI_CACHE_LINE_SIZE = 3;   // 8 bits 
+    static final int PCI_LATENCY_TIMER = 3;     // 8 bits 
+    static final int PCI_HEADER_TYPE = 3;       // 8 bits 
+        
+    //
+    // for access to the power management
+    //
+    
+  static final int PCI_POWER_CONTROL = 56;   // number of the register
+    static final int PCI_PME_ENABLE = 0x0100;
+    static final int PCI_PME_STATUS = 0x8000;
+    
+    static final int PCI_POWER_STATE_D0 = 0x00;
+    static final int PCI_POWER_STATE_D1 = 0x01;
+    static final int PCI_POWER_STATE_D2 = 0x02;
+    static final int PCI_POWER_STATE_D3 = 0x03; 
+
+    // from pci.h include - mask to get the corresponding addresses of I/O-Space or memory-space
+    
+    static final int PCI_BASE_ADDRESS_MEM_MASK = (~0x0f);
+    static final int PCI_BASE_ADDRESS_IO_MASK = (~0x03);       
+
+
+    // vector of NICs the driver supports and which are installed in the computer - filled by the probe-method  
+    private Vector foundNics = new Vector();
+    // vector of the instantiated driver objects
+    private Vector drivers = new Vector();
+    // for testing
+    BitPosition bits = new BitPosition();
+ 
+    PCIAccess pcibus;
+    PCIDevice pcidevice;
+
+   ComInit(PCIAccess pcibus, PCIDevice pcidevice){
+       this.pcibus = pcibus;
+       this.pcidevice = pcidevice;
+   }
+
+    public  void run() {
+	int t1,t2;
+	int help=0;
+	Debug.out.println("Network-> ComInit started and searching for devices...");
+
+	ComInit com = new ComInit();
+
+	com.probe(pci);
+
+	Debug.out.println("Network -> Open the first NIC");
+
+
+	if (com.numberOfCards() > 0) {
+	    D3C905 driver = com.driver(1);
+	    if (driver != null)
+		driver.NicOpen();
+	    byte[] sendme = new byte[14000];
+	    for (int i=0; i<14000; i++)
+		sendme[i] = (byte)(i*5);
+
+	    //write the target ethernet address
+	       //   sendme[0] = (byte)0x00;
+// 	     	    sendme[1] = (byte)0x50;
+// 	     	    sendme[2] = (byte)0x04;
+// 	     	    sendme[3] = (byte)0xec;  
+// 	     	    sendme[4] = (byte)0xed;
+// 	     	    sendme[5] = (byte)0xe0;
+	    
+	   //  byte[] dst = new byte[6];
+// 	    dst[0] =  (byte)0x08;
+// 	    dst[1] =  (byte)0x00;
+// 	    dst[2] =  (byte)0x20;
+// 	    dst[3] =  (byte)0x86;  
+// 	    dst[4] =  (byte)0xac;
+// 	    dst[5] =  (byte)0x74;
+
+	    byte[] dst = new byte[4];
+	    dst[0] = (byte)131;
+	    dst[1] = (byte)188;
+	    dst[2] = (byte)34;
+	    dst[3] = (byte)128;
+	    
+	    Ether e = new Ether(driver);
+	    driver.etherreg(e);
+	    ARP a = new ARP(e);
+	    Debug.out.println("ARP");
+	    IP ip = new IP(e,a);
+	    Debug.out.println("IP");
+	    UDP udp = new UDP(ip);
+	    Debug.out.println("UDP");
+	    TCP tcp = new TCP(ip);
+	    Debug.out.println("TCP");
+// 	if (driver.NICSendPacket(sendme, driver.NicInfo()))
+//  		    Debug.out.println("Sendefunktion beendet!");
+// 		else
+// 		    Debug.out.println("Sendefunktion meldet FEHLER!!!");
+	    try {
+		Debug.out.println("ACHTUNG: COMINIT VOR VERSENDEN DES UDP-PACKETS an faui40d");
+		// ziel, sourceport, destport, buffer
+		 udp.transmit(dst, 1500, 6666, sendme);
+		 Debug.out.println("Nun wird TCP VERSUCHT!");
+		 byte[] target = new byte[4];
+		 target[0] = (byte)131;
+		 target[1] = (byte)188;
+		 target[2] = (byte)34;
+		 target[3] = (byte)128;
+		 // local port, destination, destport, handler
+		 //	 Socket s = tcp.open(2300, target, 2000, new metaxa.os.tcp.testhandler());
+	    }
+	    catch (Exception ee) {
+	      Debug.out.println("PROBLEM BEIM VERSAND VON UDP ODER TCP!");
+	    }
+	    udp.waitForPort(6666, new byte[2000]);
+
+
+	    // ACHTUNG - AB HIER SCHON ZUM TESTEN ENDLOSSCHLEIFE
+	    while (true) {
+	// 	if (driver.NICSendPacket(sendme, driver.NicInfo()))
+// 		    Debug.out.println("Sendefunktion beendet!");
+// 		else
+// 		    Debug.out.println("Sendefunktion meldet FEHLER!!!");
+	    }
+	    //  clock.dumptimers();
+	}
+	else 
+	    Debug.out.println("Network -> There are no driver objects to open -> ERROR!!!");
+	while (true) {
+	    help++;
+	    if (help % 2000000 == 0)
+		clock.dumptimers();
+	}
+	
+    }
+
+    /*
+     * assign an I/O Address to the card - user is responsible for taking an address not already used by some other device
+     */ 
+    private void setupIOBase(int reg, int base, PCIDevInfo dev, PCIBus pci) {
+    	int addr = PCIBus.readConfig(dev, reg);	 // remember old value
+	int iobase = base & 0xffffff81;
+	PCIBus.writeConfig(dev, reg, iobase);
+	Debug.out.println("setupIOBase: changed I/O-Base from " + addr + " to " + iobase + "(" + base + ")");
+	int a2 = PCIBus.readConfig(dev, reg);
+	Debug.out.println("setupIOBase: CHECK REGISTERVALUE: " + a2); 
+    }
+ 
+    /* needed for delaying certain actions, e.g. writing to the EEPROM and then wait a specific amount of time 
+     * before issuing the next command
+     * this method is static so every method can use it without first creating an ComInit-Object, what can´t be
+     * be done, cause it should just exist one instance of it
+     */
+     
+  public final static void sleep(int milli, int nano) {
+	for (int i=0; i<2000*milli+5*nano; i++);
+	// try {
+	//Thread.sleep(milli, nano);
+	//}
+	//catch(InterruptedException e) {}
+    }
+
+  // taken from the IR.java file 
+  // this seems to be much more accurate than the above sleep-method 
+ 
+  public final static void udelay(long microseconds) {
+    // tsc is incremented every 2 nanoseconds on a 500 MHz CPU
+    // we have to multiply our microsecs with 500 
+    long startTime = CPU.rdtsc();
+    long endTime = startTime + (microseconds-10) * 500; // remove 10 microseconds to account for the overhead
+    while(CPU.rdtsc() < endTime);
+  }
+  
+  public boolean probe(Bus bus) {
+    if (! (bus instanceof PCIBus)) {
+	    return false; // nur PCI 
+	}
+
+	int deviceID = -1;
+	int vendorID = -1;
+	PCIBus pci = (PCIBus)bus;
+	D3C905 helper;
+	/* query for network interface cards of any vendor */
+	PCIDevInfo[] devInfo = pci.getDevicesByClass(PCI_BASE_CLASS_NETWORK);
+	if (devInfo == null) {
+	    Debug.out.println("3COM probe(): no network devices of any vendor found! ");
+	    return false;
+	}
+	// search for supported NICs
+	for (int i = 0; i < devInfo.length; i++) {
+	    // unsigned shift!!
+	    deviceID = ((devInfo[i].id() & ID_DEVICE_MASK) >>> ID_DEVICE_OFFSET_BIT);
+	    vendorID = ((devInfo[i].id() & ID_VENDOR_MASK) >>> ID_VENDOR_OFFSET_BIT);
+	
+	    if (vendorID ==  NIC_VENDOR_ID) {          // 3COM Vendor ID
+		switch (deviceID) {
+
+		case NIC_PCI_DEVICE_ID_9055:
+		    System.out.println("10/100 Base-TX NIC found");
+		    foundNics.addElement(devInfo[i]);
+		    break;
+		    
+		case NIC_PCI_DEVICE_ID_9058:
+		    System.out.println("10/100 COMBO Deluxe board found");
+		    foundNics.addElement(devInfo[i]);	    
+		    break;
+		    
+		case NIC_PCI_DEVICE_ID_9004:
+		    System.out.println("10Base-T TPO NIC found");
+		    foundNics.addElement(devInfo[i]);
+		     break;
+ 
+		case NIC_PCI_DEVICE_ID_9005:
+		    System.out.println("10Base-T/10Base-2/AUI Combo found");
+		    foundNics.addElement(devInfo[i]);
+		    break;
+ 
+		case NIC_PCI_DEVICE_ID_9006:
+		    System.out.println("10Base-T/10Base-2/TPC found");
+		    foundNics.addElement(devInfo[i]);
+		    break;
+ 
+		case NIC_PCI_DEVICE_ID_900A:
+		    System.out.println("10Base-FL NIC found");
+		    foundNics.addElement(devInfo[i]);
+		    break;
+ 
+		case NIC_PCI_DEVICE_ID_905A:
+		    System.out.println("100Base-Fx NIC found");
+		    foundNics.addElement(devInfo[i]);
+		 break;
+    
+		case NIC_PCI_DEVICE_ID_9200:
+		    System.out.println("Tornado NIC found");
+		    foundNics.addElement(devInfo[i]);
+		   break;
+		    
+		case NIC_PCI_DEVICE_ID_9800:
+		    System.out.println("10/100 Base-TX NIC(Python-H) found");
+		    foundNics.addElement(devInfo[i]);
+		    break;
+		    
+ 
+		case NIC_PCI_DEVICE_ID_9805:
+		    System.out.println("10/100 Base-TX NIC(Python-T) found");
+		    foundNics.addElement(devInfo[i]);
+		    break;
+		    
+		default:				
+		    System.out.println("ERROR: Unsupported NIC found");
+		    continue;
+		}				
+	    }
+	}
+	    
+	System.out.println("A total of " + foundNics.size() + " supported network interface cards found!");
+
+	
+	for(int i=0; i<foundNics.size(); i++) {
+            // tell the PCI system that we manage all these devices
+	    try {
+		 helper = new D3C905((PCIDevInfo)foundNics.elementAt(i), pci); 
+		// add to the drivers vector
+		drivers.addElement(helper);
+		if (! pci.manageDevice((PCIDevInfo)foundNics.elementAt(i), helper)) {
+		    System.out.println("PCI rejects our registration :-((");
+		}
+	    }
+	    catch (D3C905Exception e) {
+		Debug.out.println("ComInit: FATAL ERROR - couldn´t instantiate a driver!");
+		return false;
+	    }
+	    
+	    // now do for each NIC basic configuration stuff as enabling busmastering and checking the IRQ-line
+	    // and the IO-base
+	    // for convience reasons this is done by a separate method
+	    if (doBasicConfig((PCIDevInfo)foundNics.elementAt(i), pci, helper) == false) {
+		System.out.println("Basic configuration of NIC " + (PCIDevInfo)foundNics.elementAt(i) + " failed!!");
+	    }
+        }
+        return true;
+    }                    
+
+    public int numberOfCards() {
+	return foundNics.size();
+    }
+
+    // get a driver object - i is not the index, but the number, e.g. give me the first driver object (located at
+    // index 0) ...
+    public D3C905 driver(int i) {
+	if (i > foundNics.size())
+	    return null;
+	return ((D3C905)drivers.elementAt(i-1));
+    }
+
+    // check for busmastering and enable it, read the IRQ-Line and the IO-base
+
+    private boolean doBasicConfig(PCIDevInfo pcidev, PCIBus pcibus, D3C905 driver) {
+	
+	int IRQLine= -1;
+	int IOBase = -1;
+	int MemBase = -1;
+	boolean busMasterCapable = false;
+	int cacheLineSize = -1;
+	int latency = -1;
+	DeviceMemory devicemem;
+	// get access to the NicInformation-Object
+	NicInformation nicinfo = driver.NicInfo();
+
+	Debug.out.println("DOBasicConfig: " + pcidev);
+
+	if (nicinfo == null)
+	    Debug.out.println("ERROR - nicinfo ist null!");
+       
+	// read the command register of the PCI-Device
+	int cmd = pcibus.readConfig(pcidev, REG_CMD);
+
+	// AM BESTEN VARIABLE SETZEN UND IM TREIBER ABPRUEFEN
+	if ((cmd & 0x100) == 1)
+	    Debug.out.println("SERRRRRRR");
+	else 
+	    Debug.out.println("NO NO NO NO SERRRRRRR");
+
+	// check wether busmastering is already set (by the bios)
+	// set it when device is capable
+	if ((cmd & CMD_MASK_BM) != 0) {
+	    System.out.println("Busmastering for NIC " + pcidev + " already enabled by the Bios!");
+	}
+	else if (pcidev.busmasterCapable() == true) {
+	    System.out.println("Bustmastering for NIC " + pcidev + " not enabled, though device is capable of busmastering.");
+	    System.out.println("Trying to enforce it!");
+	    if (pcibus.enforceBusmaster(pcidev) == true) {
+		System.out.println("Busmastering enforced for NIC " + pcidev);
+	    }
+	    else {
+		System.out.println("Enforcing Busmastering for NIC " + pcidev + " failed!!");
+	    }
+	}
+	else {
+	    System.out.println("NIC " + pcidev + " doesn´t support busmastering!");
+	}
+
+	IRQLine = pcibus.readIRQLine(pcidev);
+	System.out.println("NIC " + pcidev + " at IRQline " + IRQLine);
+	IOBase = pcibus.readConfig(pcidev, PCI_BASE_ADDRESS_0);
+	// mask the the first two bits - see also Linux book
+	IOBase &= PCI_BASE_ADDRESS_IO_MASK;
+	MemBase = pcibus.readConfig(pcidev, PCI_BASE_ADDRESS_1);
+	MemBase &= PCI_BASE_ADDRESS_MEM_MASK;
+	System.out.println("NIC " + pcidev + " has IOBase " + Integer.toHexString(IOBase));
+	System.out.println("NIC " + pcidev + " has MemBase " + Integer.toHexString(MemBase));
+
+	if (IOBase == 0) {
+	    System.out.println("The system has not assigned an I/O address for the NIC. I/O Adress will be assigned!");
+	    setupIOBase(PCI_BASE_ADDRESS_0, 0x5000, pcidev, pcibus);
+	}
+
+	// some extra testing stuff
+	// read PCI Register 1 (PCICommand | PCIStatus) and test for some bits
+// 	int comm = pcibus.readConfig(pcidev, 0x01);
+// 	comm &= 0x0000ffff;
+// 	if ((comm & 0x01) != 0)
+// 	    Debug.out.println("ioSpace enabled");
+// 	else 
+// 	    Debug.out.println("ioSpace disabled");
+// 	if ((comm & 0x04) != 0)
+// 	    Debug.out.println("busmastering enabled");
+// 	else 
+// 	    Debug.out.println("busmastering disabled"); 
+// 	if ((comm & 0x02) != 0)
+// 	    Debug.out.println("memSpace enabled");
+// 	else 
+// 	    Debug.out.println("memSpace disabled");
+    
+	// reading the revisionID of the NIC - this just applies to 3C90xBs
+
+	int revision = pcibus.readConfig(pcidev, PCI_REVISION_ID);
+	// get the first byte
+	byte revision2 = (byte)(revision & 0x000000ff);
+
+	// stimmt das mit den UPPERBITS ODER MUSS ICH NOCH SCHIFTEN UM 8 NACH RECHTS????
+	int upperbits = revision2 & 0xE0;      // determine the chip/vendor
+	int lowerbits = revision2 & 0x1F;      // encodes the chip revision
+
+	switch (upperbits) {
+
+	case 0:
+	    System.out.println("NIC " + pcidev + " has 40-0502-00x ASIC");
+	     System.out.println("Revision is: " + (0x1C & lowerbits));
+	    break;
+	case 1:
+	    System.out.println("NIC " + pcidev + " has 40-0483-00x ASIC");
+	    System.out.println("Revision is: " + (0x1C & lowerbits));          // just bits [4:2] valid
+	    break;
+	case 3:
+	    System.out.println("NIC " + pcidev + " has 40-0476-001 ASIC");      
+	    System.out.println("Revision is: " + (0x1C & lowerbits));         // just bits [4:2] valid
+	    break;
+	default:
+	    System.out.println("NIC " + pcidev + " uses unknown ASIC ?");
+	    bits.printBinary("Unknown Asic -> upperbits are: ", upperbits);
+	    break;
+	}
+  
+	// now read the cacheLineSize - may be needed later and applies to 3C90xB only
+
+	cacheLineSize = pcibus.readConfig(pcidev, PCI_CACHE_LINE_SIZE);
+	
+	cacheLineSize = cacheLineSize & 0x000000ff;
+	// get bits [6:2]
+	cacheLineSize = ((cacheLineSize & 0x7C) >> 2);
+	System.out.println("NIC " + pcidev + " has cacheLineSize of: " + cacheLineSize);
+	
+	// must be a power of 2
+	if (cacheLineSize != 4 || cacheLineSize != 8 || cacheLineSize != 16 || cacheLineSize != 32 || cacheLineSize != 64)
+	    System.out.println("Unsupported cacheLineSize - treated as 0!");
+
+	latency = pcibus.readLatencyTimer(pcidev);
+
+	if (latency < 32) {
+	    System.out.println("The latency is very low (" + latency +") - setting to 32!");
+	    pcibus.writeLatencyTimer(pcidev, 32);
+	}
+	else {
+	    System.out.println("The latency is " + latency);
+	}
+
+	// set the power-management to the approbiate state
+ 
+	int pmanage = PCI_PME_STATUS | PCI_POWER_STATE_D0;
+
+	pcibus.writeConfig(pcidev, PCI_POWER_CONTROL, pmanage);
+
+	// now we write again the iobase to the reg
+
+	pcibus.writeConfig(pcidev, PCI_BASE_ADDRESS_0, IOBase); 
+
+	// now save irq and IOBase in the NicInformation
+	nicinfo.irq = IRQLine;
+	nicinfo.PCI.set_IoBaseAddress(IOBase);
+	nicinfo.PCI.set_Interrupt(IRQLine);
+	nicinfo.IoBaseAddress = IOBase;
+	nicinfo.MemBaseAddress = MemBase;
+	nicinfo.Hardware.set_CacheLineSize((byte)(cacheLineSize * 4));
+
+	Befehl befehl = new Befehl();
+	
+	if ((nicinfo.Hardware.get_CacheLineSize() % 0x10) != 0) {
+	  Debug.out.println("doBasicConfig: CachelineSize modulo 0x10 not null - setting to 0x20 !");
+	  nicinfo.Hardware.set_CacheLineSize((byte)0x20);
+	}
+	nicinfo.Hardware.set_DeviceId((short)((pcidev.id() & ID_DEVICE_MASK) >>> ID_DEVICE_OFFSET_BIT));
+	// the PCI_REVISION field - remember that for 3C90xB NICS the bits [4:2] are used to encode the revision
+	nicinfo.Hardware.set_RevisionId((byte)revision);
+       
+	System.out.println("Enable FlowControl by default");
+	nicinfo.Hardware.set_FlowControlSupported(true);
+	nicinfo.Hardware.set_FlowControlEnable(true);
+
+	// for downpollrate see Technical reference, p.109
+	System.out.println("DownPollRate setting to 8 by default");
+	nicinfo.Resources.set_DownPollRate(0x8);
+	nicinfo.DelayStart = false;
+	nicinfo.Hardware.set_MediaOverride(Mii.MEDIA_NONE);
+	nicinfo.Resources.set_SendCount(AdapterLimits.NIC_DEFAULT_SEND_COUNT); 
+	nicinfo.Resources.set_ReceiveCount(AdapterLimits.NIC_DEFAULT_RECEIVE_COUNT); 
+
+	// we set the Media to autoselection
+	nicinfo.Hardware.set_MediaOverride(Mii.MEDIA_AUTO_SELECT);
+
+	return true;
+    }
+	
+}
+
+

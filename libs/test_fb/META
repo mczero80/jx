@@ -1,0 +1,16 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS += pci
+NEEDLIBS += devices
+NEEDLIBS += fb
+NEEDLIBS += framebuffer
+NEEDLIBS += fb_vmware
+NEEDLIBS += mga_if
+NEEDLIBS += mga_hw
+
+SUBDIRS = test/fb
+
+LIBNAME = test_fb
+CLASSFILES = test/fb/*.class
+NUMBERENV = int
+
+

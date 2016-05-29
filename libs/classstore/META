@@ -1,0 +1,16 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += classfile
+NEEDLIBS += collections
+NEEDLIBS += zip
+
+
+SUBDIRS = jx/classstore
+
+LIBNAME    = classstore
+CLASSFILES = jx/classstore/*.class 
+NUMBERENV  = int
+
+

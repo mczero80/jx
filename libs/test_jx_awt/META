@@ -1,0 +1,7 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1 awt_003 awt_peer
+NEEDLIBS += window_starter
+SUBDIRS = test/jx/awt
+LIBNAME = test_jx_awt
+NUMBERENV = int
+
+

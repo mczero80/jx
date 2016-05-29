@@ -1,0 +1,9 @@
+NEEDLIBS=jdk0 zero zero_misc jdk1
+
+SUBDIRS = jx/collections
+
+LIBNAME    = collections
+CLASSFILES = jx/collections/*.class 
+NUMBERENV  = float
+
+

@@ -1,0 +1,26 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS += buffer
+NEEDLIBS += collections
+NEEDLIBS += devices
+NEEDLIBS += net
+NEEDLIBS += net_manager
+NEEDLIBS += timer
+
+NEEDLIBS += classfile
+NEEDLIBS += compiler
+NEEDLIBS += compiler_env
+NEEDLIBS += zip
+NEEDLIBS += test_compiler
+NEEDLIBS += remote_exec_format
+
+
+NEEDLIBS += jdk_net
+
+
+
+SUBDIRS = jx/rexec/server
+
+LIBNAME = remote_exec
+NUMBERENV = int
+
+

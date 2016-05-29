@@ -1,0 +1,10 @@
+NEEDLIBS = zero jdk0 zero_misc
+NEEDLIBS += bio
+NEEDLIBS += timer
+NEEDLIBS += sleep
+
+SUBDIRS = bioide
+
+LIBNAME = bio_ide
+NUMBERENV = int
+

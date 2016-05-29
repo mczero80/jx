@@ -1,0 +1,5 @@
+This tree contains all base classes
+for a very simple domain.
+
+Compile with:
+setenv CLASSPATH /local/java-1.1/lib/classes.zip:/proj/metaXa/golm/metaxa/java/nonstd-domain:/proj/metaXa/golm/metaxa/java

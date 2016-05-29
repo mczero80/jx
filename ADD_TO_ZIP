@@ -1,0 +1,8 @@
+boot.rc
+boot.rc.rdp.embed
+jcore/realmode
+libs/wm_impl/jx/wm/std.keymap
+libs/wm_impl/jx/wm/default.fon
+libs/awt_peer/jx/awt/peer/jxcolors.ini
+libs/test_jx_awt/test/jx/awt/vision01.ppm
+libs/test_jx_awt/test/jx/awt/backgrnd.ppm

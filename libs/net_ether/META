@@ -1,0 +1,14 @@
+NEEDLIBS  = zero jdk0 zero_misc jdk1
+NEEDLIBS  += list
+NEEDLIBS  += timer
+NEEDLIBS  += devices
+NEEDLIBS  += net
+NEEDLIBS  += net_misc
+
+SUBDIRS = jx/net/protocol/ether
+
+LIBNAME = net_ether
+CLASSFILES = jx/net/protocol/ether/*.class
+NUMBERENV = int 
+
+

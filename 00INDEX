@@ -1,0 +1,23 @@
+###  Java code ####
+
+libs:        All components.
+
+emulation:   Code to run JX domains in a standard JDK. This code
+             emulates the PC hardware and the JX microkernel.
+
+edomains:    Used to start up domains in an emulation environment.
+
+###  C code ###
+
+jcore:       JX core that executes precompiled code.
+
+
+######### LIMITATIONS ############
+
+- no float, long, double
+- no unicode
+- incomplete JDK API
+- class initialization (statics) does not conform to the JVM spec
+- hashcode not constant during object lifetime
+- ...
+

@@ -1,0 +1,55 @@
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+
+#######################
+# Components
+#######################
+
+[Component PCI]
+InitLib      = pci_pc.jll
+StartClass   = jx/devices/pci/PCIGod
+
+[Component Framebuffer]
+StartClass   = jx/fb/StartFBDevice
+InitLib      = fb_devices.jll
+#Args         = FB, jx/devices/fb/vmware/VMWareSVGAFinder, fb_vmware.jll, null, jx/devices/fb/emulation/EmulFBFinder, fb_emul.jll, 279, null, jx/devices/fb/mga/MGA200Finder, mga_hw.jll, null
+Args         = FB, jx/devices/fb/emulation/EmulFBFinder, fb_emul.jll, 279, null
+
+[Component KeyboardMouse]
+StartClass   = jx/keyboard/Main
+InitLib      = keyboard_pc.jll
+Args         = WindowManager
+
+[Component KeyboardMouseEmul]
+StartClass   = jx/devices/fb/emulation/InputEmul
+InitLib      = fb_emul.jll
+Args         = WindowManager
+
+[Component WindowManager]
+StartClass   = jx/wm/WindowManagerImpl
+InitLib      = wm_impl.jll
+Args         = WindowManager, FB
+
+
+[Component AWTTest]
+StartClass    = test/jx/awt/Main
+InitLib       = test_jx_awt.jll
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = AllDomain
+CodeSize     = 100000
+#Components   = PCI, Framebuffer, KeyboardMouseEmul,  WindowManager, AWTTest
+Components   = Framebuffer, PCI, KeyboardMouse,  WindowManager, AWTTest
+GarbageCollector = copying
+HeapSize     = 20000000

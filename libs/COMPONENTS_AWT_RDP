@@ -1,0 +1,17 @@
+#
+# local COMPONENT file. Don`t checkin.
+#
+
+init2
+pci_pc
+fb_devices
+fb_emul
+test_jx_awt
+keyboard_pc
+wm_impl
+
+net_devices
+net_protocols
+
+rdp_pure
+

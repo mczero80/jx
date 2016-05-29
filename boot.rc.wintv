@@ -1,0 +1,62 @@
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+
+#######################
+# Components
+#######################
+
+[Component PCI]
+InitLib      = pci_pc.jll
+StartClass   = jx/devices/pci/PCIGod
+
+[Component WinTV]
+StartClass   = test/wintv/BttvDomain
+InitLib      = test_wintv.jll
+Args         = Framegrabber
+
+
+[Component FramebufferALL]
+StartClass   = jx/fb/StartFBDevice
+InitLib      = fb_devices.jll
+Args         = FB, jx/devices/fb/emulation/EmulFBFinder, fb_emul.jll, 279, null, jx/devices/fb/mga/MGA200Finder, mga_hw.jll, null, jx/devices/fb/vmware/VMWareSVGAFinder, fb_vmware.jll, null
+
+[Component Framebuffer]
+StartClass   = jx/fb/StartFBDevice
+InitLib      = fb_devices.jll
+Args         = FB, jx/devices/fb/emulation/EmulFBFinder, fb_emul.jll, 279, null
+
+[Component MGA]
+StartClass   = jx/devices/fb/mga/MGA200Impl
+InitLib      = mga_hw.jll
+
+[Component WinTVTest]
+StartClass   = test/wintv/Main
+InitLib      = test_wintv.jll
+Args         = Framegrabber, FB, NTSC, PuzzleTest, NOCTRL, -, chinch, -, WinTV-IRReceiver
+#Args         = Framegrabber, FB, NTSC, SimpleVideoTest, NOCTRL, -, chinch, -, WinTV-IRReceiver
+#Args         = Framegrabber, FB, PAL, PuzzleTest, NOCTRL, -, tuner, 647250000, WinTV-IRReceiver
+
+
+[Component Timer]
+InitLib      = timer_pc.jll 
+StartClass   = timerpc/StartTimer
+Args         = TimerManager
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = All
+HeapSize     = 20000000
+CodeSize     = 500000
+Components   = PCI, Framebuffer, Timer, WinTV, WinTVTest
+
+

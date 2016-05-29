@@ -1,0 +1,16 @@
+#
+# local COMPONENT file. Don`t checkin.
+#
+
+init
+legacy_starter
+
+net_devices
+net_protocols
+test_net
+test_fs
+test_timer
+test_nfs
+test_timer
+
+

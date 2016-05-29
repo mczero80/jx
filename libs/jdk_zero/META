@@ -1,0 +1,5 @@
+NEEDLIBS = 
+SUBDIRS = java/lang
+LIBNAME = jdk_zero
+NUMBERENV = int 
+

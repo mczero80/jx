@@ -1,0 +1,9 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0 zero_misc jdk1
+
+SUBDIRS = test/gc
+
+LIBNAME = test_gc
+CLASSFILES = test/gc/*.class
+NUMBERENV = int
+

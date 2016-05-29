@@ -1,0 +1,30 @@
+NEEDLIBS  = zero jdk0 zero_misc jdk1
+NEEDLIBS  += buffer
+NEEDLIBS  += timer
+NEEDLIBS  += devices
+NEEDLIBS += net 
+NEEDLIBS += net_misc 
+NEEDLIBS += net_ether 
+NEEDLIBS += net_ip
+NEEDLIBS += net_arp
+NEEDLIBS += net_icmp
+NEEDLIBS += net_udp
+NEEDLIBS += net_tcp_akbp
+NEEDLIBS += net_manager
+NEEDLIBS += net_bootp
+
+
+# needed for init
+NEEDLIBS += pci
+NEEDLIBS += net_3c905
+NEEDLIBS += net_lance
+NEEDLIBS += net_emul
+
+
+SUBDIRS = jx/netmanager
+
+LIBNAME = net_manager_impl
+CLASSFILES = jx/netmanager/*.class
+NUMBERENV = int 
+
+

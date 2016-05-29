@@ -1,0 +1,9 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+
+SUBDIRS = test/freeze
+
+LIBNAME = test_freeze
+CLASSFILES = test/freeze/*.class
+NUMBERENV = int
+
+

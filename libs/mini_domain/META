@@ -1,0 +1,6 @@
+NEEDLIBS = zero jdk0 zero_misc
+SUBDIRS = test/portal/scale
+LIBNAME = mini_domain
+NUMBERENV = int
+
+

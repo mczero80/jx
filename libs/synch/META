@@ -1,0 +1,13 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+
+SUBDIRS = jx/synch/blocking
+SUBDIRS += jx/synch/mutex
+SUBDIRS += jx/synch/nonblocking2
+
+LIBNAME = synch
+CLASSFILES = jx/synch/blocking/*.class
+CLASSFILES += jx/synch/nonblocking2/*.class
+CLASSFILES += jx/synch/mutex/*.class
+NUMBERENV = int
+
+

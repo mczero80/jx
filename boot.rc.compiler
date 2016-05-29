@@ -1,0 +1,32 @@
+#
+#  JX boot configuration
+#
+
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+#######################
+# Components
+#######################
+
+[Component CompilerPluginTest]
+StartClass   = test/compiler/PluginTest
+InitLib      = test_compiler.jll
+Args         = 
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = "CompilerTest"
+HeapSize     = 300000
+CodeSize     = 50000
+Components   = CompilerPluginTest 
+

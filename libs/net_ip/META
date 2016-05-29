@@ -1,0 +1,14 @@
+NEEDLIBS  = zero jdk0 zero_misc jdk1
+NEEDLIBS  += buffer
+NEEDLIBS  += timer
+NEEDLIBS  += devices
+NEEDLIBS  += net
+NEEDLIBS  += net_misc
+
+SUBDIRS = jx/net/protocol/ip
+
+LIBNAME = net_ip
+CLASSFILES = jx/net/protocol/ip/*.class
+NUMBERENV = int 
+
+

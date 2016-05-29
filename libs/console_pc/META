@@ -1,0 +1,13 @@
+NEEDLIBS  = zero jdk0 zero_misc jdk1
+NEEDLIBS += console
+NEEDLIBS += wm
+NEEDLIBS += keyboard keyboard_pc
+NEEDLIBS += screen screen_pc 
+
+SUBDIRS = jx/console
+
+LIBNAME = console_pc
+CLASSFILES = jx/console/*.class 
+NUMBERENV = int 
+
+

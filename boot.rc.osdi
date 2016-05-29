@@ -1,0 +1,100 @@
+#
+#  JX boot configuration
+#
+
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+#######################
+# Components
+#######################
+
+[Component PCI]
+InitLib      = pci_pc.jll
+StartClass   = jx/devices/pci/PCIGod
+
+[Component Timer]
+InitLib      = timer_pc.jll 
+StartClass   = timerpc/StartTimer
+Args         = TimerManager
+
+[Component NetDevices]
+InitLib      = net_devices.jll
+StartClass   = jx/net/StartNetDevice
+Args         = NIC, eth0, 8:0:6:28:63:44
+
+[Component NetProtos]
+InitLib      = net_protocols.jll 
+StartClass   = jx/net/protocols/StartNetworkProtocols
+Args         = NIC, TimerManager, NET
+
+[Component BioRAM]
+InitLib      = test_fs.jll
+StartClass   = test/fs/BioRAMDomain
+Args         = BIOFS
+
+[Component FS]
+StartClass   = test/fs/FSDomain
+InitLib      = test_fs.jll
+Args         = BIOFS, FS
+
+#[Component FSFormat]
+#StartClass   = test/fs/FSDomain
+#InitLib      = test_fs.jll
+#Args         = BIOFS, FSFormat, -format
+
+[Component FS]
+StartClass   = test/fs/FSDomain
+InitLib      = test_fs.jll
+Args         = BIOFS, FS
+
+[Component TCPTest]
+#InitLib      = test_net.jll
+InitLib      = webserver.jll
+StartClass   = test/net/WebServer
+#Args         = -fs, FS, -threads
+Args         = -fs, FS,
+#Args         = -fs, FS, -port, 8080
+
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = "PCIDomain"
+Scheduler    = jx/scheduler/HLRRobin
+HeapSize     = 300000
+CodeSize     = 50000
+Components   = PCI
+
+[Domain]
+Name         = "NicDomain"
+HeapSize     = 20000000
+CodeSize     = 50000
+Components   = Timer, NetDevices
+
+[Domain]
+Name         = "NetDomain"
+HeapSize     = 30000000
+CodeSize     = 50000
+Components   = NetProtos
+
+[Domain]
+Name         = "FS"
+HeapSize     = 30000000
+CodeSize     = 50000
+Components   = BioRAM, FS 
+
+[Domain]
+Name         = "TestNetDomain"
+HeapSize     = 10000000
+CodeSize     = 50000
+Components   = TCPTest
+

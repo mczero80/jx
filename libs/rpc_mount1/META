@@ -1,0 +1,31 @@
+NEEDLIBS = zero
+NEEDLIBS += jdk0
+NEEDLIBS += zero_misc
+NEEDLIBS += jdk1
+NEEDLIBS += xdr
+NEEDLIBS  += timer
+NEEDLIBS  += buffer
+NEEDLIBS += devices
+NEEDLIBS += net
+NEEDLIBS += net_manager
+NEEDLIBS += rpc
+NEEDLIBS += fs
+NEEDLIBS += rpc_if_nfs2
+NEEDLIBS += rpc_nfs2
+NEEDLIBS += rpc_if_mount1
+NEEDLIBS += rpc_if_bind2
+NEEDLIBS += rpc_bind2
+
+SUBDIRS = jx/rpcsvc/mount1
+
+EXTRACLEAN = *_Stub.java *_Skel.java
+
+RPC_OUTPUTDIR  = jx/rpcsvc/mount1
+RPC_INTERFACES = jx.rpcsvc.mount1.MountProc
+RPC_COMPONENTS = rpc rpc_if_mount1 rpc_if_nfs2
+
+LIBNAME    = rpc_mount1
+CLASSFILES = jx/rpcsvc/mount1/*.class 
+NUMBERENV  = int
+
+

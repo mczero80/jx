@@ -1,0 +1,83 @@
+#######################
+# Global configuration
+#######################
+
+[Global]
+InstallNaming        = jx/init/InitNaming
+#SecurityManagerLib   = secmgr_impl.jll
+#SecurityManagerClass = jx/secmgr/SecMgr
+
+
+#######################
+# Components
+#######################
+
+[Component PCI]
+InitLib      = pci_pc.jll
+StartClass   = jx/devices/pci/PCIGod
+
+[Component Framebuffer]
+StartClass   = jx/fb/StartFBDevice
+InitLib      = fb_devices.jll
+#Args         = FB, jx/devices/fb/vmware/VMWareSVGAFinder, fb_vmware.jll, null, jx/devices/fb/emulation/EmulFBFinder, fb_emul.jll, 279, null, jx/devices/fb/mga/MGA200Finder, mga_hw.jll, null
+Args         = FB, jx/devices/fb/emulation/EmulFBFinder, fb_emul.jll, 279, null
+
+[Component KeyboardMouse]
+StartClass   = jx/keyboard/Main
+InitLib      = keyboard_pc.jll
+Args         = WindowManager
+
+[Component KeyboardMouseEmul]
+StartClass   = jx/devices/fb/emulation/InputEmul
+InitLib      = fb_emul.jll
+Args         = WindowManager
+
+[Component WindowManager]
+StartClass   = jx/wm/WindowManagerImpl
+InitLib      = wm_impl.jll
+Args         = WindowManager, FB
+
+
+[Component AWTTest]
+StartClass    = test/jx/awt/Main
+InitLib       = test_jx_awt.jll
+
+[Component Capture]
+StartClass    = jx/wm/plugin/ScreenCapture
+InitLib       = wm_plugin_screencapture.jll
+Args         = WindowManager, FB, 192.168.34.21
+
+[Component PCI]
+InitLib      = pci_pc.jll
+StartClass   = jx/devices/pci/PCIGod
+
+[Component Timer]
+InitLib      = timer_pc.jll 
+StartClass   = timerpc/StartTimer
+Args         = TimerManager
+
+[Component NetDevices]
+InitLib      = net_devices.jll
+StartClass   = jx/net/StartNetDevice
+Args         = NIC, eth0, 8:0:6:28:63:40
+
+[Component NetProtos]
+InitLib      = net_protocols.jll 
+StartClass   = jx/net/protocols/StartNetworkProtocols
+Args         = NIC, TimerManager, NET
+#InheritThread = jx/net/protocol/tcp/TCPSocket
+
+#######################
+# Domains
+#######################
+
+[Domain]
+Name         = AllDomain
+CodeSize     = 200000
+Components   = PCI, Framebuffer, KeyboardMouse, WindowManager, Timer, NetDevices, NetProtos, AWTTest, Capture
+#GarbageCollector = chunked
+GCHeapInitial    = 400000
+GCHeapChunk      = 400000
+GCStartGC        = 2000000
+GarbageCollector = copying
+HeapSize     = 20000000

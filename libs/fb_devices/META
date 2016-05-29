@@ -1,0 +1,18 @@
+NEEDLIBS  = zero jdk0 zero_misc
+NEEDLIBS  += devices
+#NEEDLIBS += timer timer_pc
+#NEEDLIBS += pci
+#NEEDLIBS += fb_emul 
+#NEEDLIBS += fb_vmware 
+#NEEDLIBS += mga_hw
+NEEDLIBS += framebuffer
+NEEDLIBS += mga_if
+NEEDLIBS += wintv_util 
+
+SUBDIRS = jx/fb
+
+LIBNAME = fb_devices
+
+NUMBERENV = int 
+
+

@@ -1,0 +1,13 @@
+NEEDLIBS = zero jdk0 zero_misc jdk1
+NEEDLIBS += devices
+NEEDLIBS += fb
+NEEDLIBS += wm
+NEEDLIBS += collections
+NEEDLIBS += streams
+
+SUBDIRS = test/wm
+
+LIBNAME = test_wm
+CLASSFILES = test/wm/*.class
+NUMBERENV = int
+

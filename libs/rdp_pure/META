@@ -1,0 +1,6 @@
+NEEDLIBS = zero zero_misc jdk_net
+NEEDLIBS += wm awt_003 awt_peer
+NEEDLIBS += jdk_fs_mini
+SUBDIRS = jx/rdp jx/rdp/orders jx/rdp/crypto
+LIBNAME = rdp_pure
+NUMBERENV = int
